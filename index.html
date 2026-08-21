@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chimera Racing — Sponsorship Pack Review Checklist</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FAFAF8;--card:#FFFFFF;--card-alt:#F6F5F2;
+  --ink:#111;--dim:#777;--border:#E0DED8;
+  --red:#E10600;--red-bg:rgba(225,6,0,.04);
+  --gold:#D4AF37;--gold-bg:rgba(212,175,55,.06);
+  --green:#1B7A3D;--green-bg:rgba(27,122,61,.06);
+  --done:#2ECC71;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;font-weight:400;font-size:15px;line-height:1.6;padding:0 0 80px}
+
+.header{background:#0D0D0D;color:#fff;padding:40px clamp(20px,4vw,48px);position:relative}
+.header-inner{max-width:860px;margin:0 auto}
+.brand{font-family:'Oswald',sans-serif;font-weight:700;font-size:14px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:24px;color:rgba(255,255,255,.5)}
+.brand span{color:var(--red)}
+.header h1{font-family:'Oswald',sans-serif;font-weight:700;font-size:clamp(24px,4vw,36px);text-transform:uppercase;letter-spacing:.02em;line-height:1.1}
+.header p{font-size:13px;color:rgba(255,255,255,.5);margin-top:12px;max-width:50ch;line-height:1.6}
+
+/* Progress bar */
+.progress-wrap{background:#0D0D0D;padding:0 clamp(20px,4vw,48px) 20px;position:sticky;top:0;z-index:50;border-bottom:1px solid #222}
+.progress-inner{max-width:860px;margin:0 auto;display:flex;align-items:center;gap:16px}
+.progress-bar{flex:1;height:6px;background:#222;border-radius:3px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--red),var(--gold));width:0%;transition:width .4s ease;border-radius:3px}
+.progress-text{font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(255,255,255,.6);letter-spacing:.1em;white-space:nowrap}
+.progress-reset{background:none;border:1px solid #333;color:#888;font-family:'JetBrains Mono',monospace;font-size:10px;padding:4px 10px;cursor:pointer;letter-spacing:.1em;text-transform:uppercase}
+.progress-reset:hover{border-color:var(--red);color:var(--red)}
+
+/* Main */
+.main{max-width:860px;margin:0 auto;padding:0 clamp(20px,4vw,48px)}
+
+/* Section */
+.section{margin-top:40px}
+.section-head{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:2px solid var(--ink);margin-bottom:4px;cursor:pointer;user-select:none}
+.section-head:hover .section-title{color:var(--red)}
+.section-num{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--red);letter-spacing:.2em;width:28px}
+.section-title{font-family:'Oswald',sans-serif;font-weight:600;font-size:15px;text-transform:uppercase;letter-spacing:.06em;flex:1;transition:color .2s}
+.section-count{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim);letter-spacing:.1em}
+.section-toggle{font-size:18px;color:var(--dim);transition:transform .2s}
+.section.collapsed .section-toggle{transform:rotate(-90deg)}
+.section.collapsed .items{display:none}
+
+/* Items */
+.items{margin:0}
+.item{display:grid;grid-template-columns:28px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);align-items:start;transition:opacity .3s}
+.item.checked{opacity:.55}
+.item.checked .item-text{text-decoration:line-through;text-decoration-color:var(--dim)}
+
+/* Checkbox */
+.cb{width:20px;height:20px;border:2px solid var(--border);border-radius:3px;cursor:pointer;display:grid;place-items:center;transition:all .15s;margin-top:1px;flex-shrink:0}
+.cb:hover{border-color:var(--red)}
+.item.checked .cb{background:var(--green);border-color:var(--green)}
+.cb svg{opacity:0;transition:opacity .15s}
+.item.checked .cb svg{opacity:1}
+
+.item-text{font-size:14px;line-height:1.55}
+.item-note{font-size:12px;color:var(--dim);margin-top:3px;line-height:1.5;font-style:italic}
+.item-reg{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--red);letter-spacing:.1em;margin-top:3px}
+
+/* Priority badges */
+.badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:2px 6px;border-radius:2px;margin-left:6px;vertical-align:middle}
+.badge-critical{background:var(--red-bg);color:var(--red);border:1px solid rgba(225,6,0,.15)}
+.badge-important{background:var(--gold-bg);color:var(--gold);border:1px solid rgba(212,175,55,.15)}
+.badge-placeholder{background:#f0f0f0;color:#999;border:1px solid #ddd}
+
+/* Notes area */
+.notes-area{margin-top:40px;padding:24px;background:var(--card);border:1px solid var(--border)}
+.notes-area h3{font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+.notes-area textarea{width:100%;min-height:120px;border:1px solid var(--border);padding:12px;font-family:'Inter',sans-serif;font-size:13px;line-height:1.6;resize:vertical;background:var(--card-alt)}
+
+/* Print */
+@media print{
+  .progress-wrap{position:static;background:#fff;border:none}
+  .progress-bar,.progress-reset{display:none}
+  .progress-text{color:#000}
+  .header{background:#000;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .section.collapsed .items{display:block!important}
+  .section-toggle{display:none}
+  .cb{border-color:#000!important}
+  .item.checked .cb{background:var(--green)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .notes-area textarea{border:1px solid #000;min-height:200px}
+  body{padding-bottom:0}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="brand">Chimera <span>Racing</span></div>
+    <h1>Sponsorship Pack Review Checklist</h1>
+    <p>Comprehensive quality check for the team-produced sponsorship pack. Run through every item before sending to sponsors or submitting for competition.</p>
+  </div>
+</div>
+
+<div class="progress-wrap">
+  <div class="progress-inner">
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <span class="progress-text" id="progressText">0 / 0</span>
+    <button class="progress-reset" onclick="resetAll()">Reset</button>
+  </div>
+</div>
+
+<div class="main" id="main"></div>
+
+<script>
+const DATA = [
+  {
+    id: 's1', title: 'Cover Page', items: [
+      { text: 'Team name "Chimera Racing" is prominent and correctly spelled', note: 'Check the logo matches the finalised version across all materials' },
+      { text: 'Team logo is present and high resolution', note: 'No pixelation when printed at A3 or larger' },
+      { text: 'School name is included (King Edward\'s School)', badge: 'critical' },
+      { text: 'Competition name included (STEM Racing / F1 in Schools)' },
+      { text: 'Contact details present — email and/or phone', note: 'Must route through the school, not personal numbers', badge: 'placeholder' },
+      { text: 'A strong visual — car render, team photo, or concept image', note: 'This is the first thing a sponsor sees. If it looks amateur, they stop reading.' },
+      { text: 'Tagline included', note: 'e.g. "Engineered for Precision. Built for Performance." or your own' },
+      { text: 'Season / year clearly stated (2026/27)' },
+    ]
+  },
+  {
+    id: 's2', title: 'Executive Summary', items: [
+      { text: 'One page maximum — brief and persuasive' },
+      { text: 'Explains who the team is in 1-2 sentences' },
+      { text: 'Explains what STEM Racing is (assume sponsor has never heard of it)' },
+      { text: 'States what stage of competition the team has reached' },
+      { text: 'States clearly why sponsorship is being sought' },
+      { text: 'States the amount or type of support required', badge: 'critical' },
+      { text: 'Could a busy person read this page alone and understand the entire ask?', note: 'If not, rewrite. This page does the heavy lifting.' },
+    ]
+  },
+  {
+    id: 's3', title: 'About the Competition', items: [
+      { text: 'Explains what STEM Racing / F1 in Schools involves' },
+      { text: 'Mentions the engineering, design, marketing, and business elements' },
+      { text: 'Describes competition stages (regional, national, world finals)' },
+      { text: 'Conveys scale and credibility (60+ countries, 25+ years, F1 endorsed)' },
+      { text: 'Lists the skills students develop', note: 'CAD, CFD, CNC, budgeting, project management, presentation, marketing' },
+      { text: 'Does NOT overstate the team\'s reach or importance', note: 'Credibility matters more than hype', badge: 'important' },
+    ]
+  },
+  {
+    id: 's4', title: 'Meet the Team', items: [
+      { text: 'Every team member is listed with name', badge: 'critical' },
+      { text: 'Every team member has a photograph', badge: 'placeholder', note: 'Placeholder if photos not yet available — but note this needs completing' },
+      { text: 'Every team member has a defined role' },
+      { text: 'Responsibilities are briefly described for each role' },
+      { text: 'Relevant skills or interests mentioned where appropriate' },
+      { text: 'Team size matches the actual roster (3-6 students per competition regs C2.1.1)' },
+      { text: 'Supervising teacher Mr Balkham is mentioned' },
+    ]
+  },
+  {
+    id: 's5', title: 'Team Story and Objectives', items: [
+      { text: 'Explains why the team entered the competition' },
+      { text: 'Describes what makes the team distinctive', note: 'What\'s your angle? Engineering focus? Community impact? Brand quality?' },
+      { text: 'States team values and ambitions' },
+      { text: 'Lists any previous achievements (if applicable)' },
+      { text: 'States competition targets for this season', badge: 'important' },
+      { text: 'Mentions longer-term goals if relevant' },
+      { text: 'The Chimera name meaning is explained', note: 'Mythological creature — diverse disciplines creating something greater' },
+    ]
+  },
+  {
+    id: 's6', title: 'Car and Engineering Project', items: [
+      { text: 'Shows initial car designs, concepts, or renders', note: 'These should be the team\'s own CAD work, not AI concept images' },
+      { text: 'Describes the CAD development process (Fusion 360)' },
+      { text: 'Describes aerodynamic testing approach' },
+      { text: 'Mentions Ansys CFD work or planned CFD work' },
+      { text: 'Describes manufacturing methods (CNC from STEM Racing Model Block)', reg: 'T3.1.1, T3.1.2, T4.1' },
+      { text: 'Mentions materials used' },
+      { text: 'Describes testing and performance improvement process' },
+      { text: 'Does NOT reveal sensitive design geometry that could help competitors', badge: 'critical', note: 'Per the sponsorship guide — protect competitive advantage' },
+      { text: 'Engineering claims are accurate and achievable', note: 'Don\'t claim CFD results you haven\'t run yet' },
+    ]
+  },
+  {
+    id: 's7', title: 'Business and Marketing Strategy', items: [
+      { text: 'Team branding is described (colours, logo system, typography)' },
+      { text: 'Social media plans are outlined', note: 'Which platforms, posting frequency, content types' },
+      { text: 'Website or online presence is mentioned', badge: 'placeholder' },
+      { text: 'Community engagement activities described', note: 'STEM outreach, school events, eco initiatives — these score in Enterprise judging', reg: 'Enterprise Scorecard: Community & Social Impact' },
+      { text: 'Intended audience and realistic reach stated', badge: 'important', note: 'Don\'t claim 10,000 followers if you have 50. Honesty wins.' },
+    ]
+  },
+  {
+    id: 's8', title: 'Budget — Why Sponsorship is Needed', items: [
+      { text: 'A clear budget table is included', badge: 'critical' },
+      { text: 'Budget has been verified by the Finance Officer', badge: 'placeholder', note: 'Waiting for updated version from finance officer' },
+      { text: 'All major cost categories are present', note: 'Equipment, software, manufacturing, testing, uniforms, display, marketing, travel, registration' },
+      { text: 'Figures are realistic and based on actual quotes where possible' },
+      { text: 'The total project cost is clearly stated' },
+      { text: 'In-kind items are separated from cash needs', badge: 'important', note: 'Show which costs could be covered by equipment sponsorship vs cash' },
+      { text: 'Competition registration fee included (£100+VAT regional, £400+VAT nationals)', reg: 'Competition Regs p11-12' },
+      { text: 'No obviously missing items that a judge would question' },
+      { text: 'A "funding route" column exists (Cash / In-Kind / School)', note: 'This shows strategic thinking, not just a shopping list' },
+    ]
+  },
+  {
+    id: 's9', title: 'Sponsorship Tiers / Packages', items: [
+      { text: 'Clearly defined tiers are presented', badge: 'critical' },
+      { text: 'Each tier has a name, contribution level, and specific benefits listed' },
+      { text: 'Tier amounts reflect the team\'s actual budget and realistic exposure', note: 'Don\'t offer £2,000 Title Partner if your total budget is £1,500' },
+      { text: 'Benefits are tangible and deliverable — not vague promises' },
+      { text: 'An in-kind / Official Supplier tier exists', badge: 'important', note: 'Makes it easy for companies to contribute products/services instead of cash' },
+      { text: 'The number of available slots per tier is stated where relevant' },
+      { text: 'A bespoke arrangement option is mentioned', note: '"We welcome conversations about tailored partnerships"' },
+      { text: 'No inflated publicity claims the team cannot prove', reg: 'Sponsorship Guide Section 10 — Credibility', badge: 'important' },
+    ]
+  },
+  {
+    id: 's10', title: 'Benefits to Sponsors', items: [
+      { text: 'Logo placement on the car is described' },
+      { text: 'Branding on team uniforms mentioned' },
+      { text: 'Logo on pit display mentioned' },
+      { text: 'Recognition in the competition portfolio mentioned' },
+      { text: 'Social media mentions described' },
+      { text: 'Website acknowledgement described' },
+      { text: 'Invitations to events mentioned' },
+      { text: 'Photographs and updates for sponsor\'s own marketing offered' },
+      { text: 'CSR / educational association benefit highlighted', note: 'This is often the main reason a company sponsors — emphasise it' },
+    ]
+  },
+  {
+    id: 's11', title: 'In-Kind / Bespoke Support', items: [
+      { text: 'In-kind support is positioned as equally valid to cash', badge: 'important' },
+      { text: 'Specific in-kind opportunities listed (laptop, printing, machining, uniforms, etc.)' },
+      { text: 'The Ansys-compatible Windows laptop need is highlighted as a specific ask', note: 'Concrete asks are easier for companies to fulfil than vague requests' },
+      { text: 'Mentoring and professional advice listed as an option' },
+    ]
+  },
+  {
+    id: 's12', title: 'Sponsor Activation Plan', items: [
+      { text: 'Monthly progress updates promised' },
+      { text: 'Sponsor announcement posts described' },
+      { text: 'Behind-the-scenes engineering content mentioned' },
+      { text: 'Sponsor visits to school offered' },
+      { text: 'Competition-day coverage promised' },
+      { text: 'End-of-project report with photographs committed to', badge: 'important' },
+      { text: 'Activation plan is realistic — can the team actually deliver all of this?', note: 'Only promise what 8 people can genuinely do. Judges and sponsors both respect honesty.' },
+    ]
+  },
+  {
+    id: 's13', title: 'Timeline', items: [
+      { text: 'Major milestones are listed with approximate dates' },
+      { text: 'Includes: team formation, design, CFD, manufacturing, regionals, nationals' },
+      { text: 'Target completion date is stated (e.g. "core work complete by Christmas")' },
+      { text: 'Timeline is realistic given the team\'s current progress' },
+      { text: 'World finals noted as conditional ("if qualified")' },
+    ]
+  },
+  {
+    id: 's14', title: 'Call to Action', items: [
+      { text: 'A clear, specific request is made — what the team is asking for', badge: 'critical' },
+      { text: 'How to sponsor the team is explained (process)' },
+      { text: 'Contact name or role is provided' },
+      { text: 'Email address included', badge: 'placeholder' },
+      { text: 'Phone number included (school-routed)', badge: 'placeholder' },
+      { text: 'Payment / formal agreement process mentioned', note: 'Should reference school finance procedures for credibility and safeguarding' },
+    ]
+  },
+  {
+    id: 's15', title: 'Competition Compliance', items: [
+      { text: 'All content was written by the team (C2.8.2)', badge: 'critical', reg: 'C2.8.2', note: 'If AI tools were used for drafting, the team has rewritten everything in their own words and can explain every part' },
+      { text: 'Any outside assistance is documented and justifiable (C2.8.3)', reg: 'C2.8.3' },
+      { text: 'No F1 word marks used in team name or branding (C2.13)', reg: 'C2.13' },
+      { text: 'Team size is within 3-6 members (C2.1.1)', reg: 'C2.1.1' },
+      { text: 'Content aligns with Enterprise scorecard criteria', reg: 'Enterprise Scorecard', note: 'Sponsorship hierarchy, ROI, marketing strategy, community impact — all assessed' },
+      { text: 'Content aligns with Brand Identity scorecard criteria', reg: 'Brand Identity Scorecard', note: 'Graphic identity consistency, team identity across all outputs' },
+      { text: 'Every team member can explain and justify every part of the pack in a judging interview', badge: 'critical', note: 'The real test. If someone can\'t explain it, it shouldn\'t be in there.' },
+    ]
+  },
+  {
+    id: 's16', title: 'Brand Consistency', items: [
+      { text: 'Colour palette matches across pack, portfolio, pit display, website, and kit' },
+      { text: 'Logo is used consistently — same version, same placement rules' },
+      { text: 'Typography is consistent throughout the document' },
+      { text: 'Tone of voice is consistent — professional but authentic to a student team' },
+      { text: 'Visual style matches the Design & Engineering portfolio' },
+      { text: 'Car livery in renders matches the brand identity', note: 'Once hand-drawn graphics replace concepts, this needs re-checking' },
+    ]
+  },
+  {
+    id: 's17', title: 'Print and Format Quality', items: [
+      { text: 'Document looks professional when printed (test print at least one copy)', badge: 'important' },
+      { text: 'No spelling or grammar errors' },
+      { text: 'Images are high resolution — no pixelation or stretching' },
+      { text: 'Layout is clean and easy to scan — a busy person can find key info in 30 seconds' },
+      { text: 'Page count is reasonable (8-15 pages per sponsorship guide)' },
+      { text: 'A separate one-page summary exists for WhatsApp / email sharing', badge: 'placeholder' },
+      { text: 'PDF version exports correctly with fonts and images intact' },
+    ]
+  },
+  {
+    id: 's18', title: 'Safeguarding and Governance', items: [
+      { text: 'All sponsor payments route through school finance procedures', badge: 'critical' },
+      { text: 'Mr Balkham is named as supervising teacher' },
+      { text: 'Student photos have appropriate consent (check school policy)' },
+      { text: 'No personal phone numbers or home addresses — school contact only' },
+      { text: 'Document has been reviewed by Mr Balkham before external distribution', badge: 'important' },
+    ]
+  },
+];
+
+const main = document.getElementById('main');
+let checks = {};
+
+// Load saved state
+try { checks = JSON.parse(localStorage.getItem('cr_checklist') || '{}'); } catch(e) {}
+
+function save() {
+  try { localStorage.setItem('cr_checklist', JSON.stringify(checks)); } catch(e) {}
+}
+
+function updateProgress() {
+  let total = 0, done = 0;
+  DATA.forEach(s => { s.items.forEach((_, i) => { total++; if (checks[s.id + '-' + i]) done++; }); });
+  document.getElementById('progressFill').style.width = (total ? (done/total*100) : 0) + '%';
+  document.getElementById('progressText').textContent = done + ' / ' + total;
+  // Update section counts
+  DATA.forEach(s => {
+    const el = document.getElementById('count-' + s.id);
+    if (!el) return;
+    let st = 0, sd = 0;
+    s.items.forEach((_, i) => { st++; if (checks[s.id + '-' + i]) sd++; });
+    el.textContent = sd + '/' + st;
+    if (sd === st && st > 0) el.style.color = 'var(--green)';
+    else el.style.color = '';
+  });
+}
+
+function toggleItem(sectionId, idx) {
+  const key = sectionId + '-' + idx;
+  checks[key] = !checks[key];
+  save();
+  const el = document.getElementById('item-' + key);
+  if (el) el.classList.toggle('checked', checks[key]);
+  updateProgress();
+}
+
+function toggleSection(sectionId) {
+  const el = document.getElementById('sec-' + sectionId);
+  if (el) el.classList.toggle('collapsed');
+}
+
+function resetAll() {
+  if (!confirm('Reset all checkboxes? This cannot be undone.')) return;
+  checks = {};
+  save();
+  document.querySelectorAll('.item').forEach(el => el.classList.remove('checked'));
+  updateProgress();
+}
+
+// Render
+DATA.forEach((section, si) => {
+  const secDiv = document.createElement('div');
+  secDiv.className = 'section';
+  secDiv.id = 'sec-' + section.id;
+
+  const head = document.createElement('div');
+  head.className = 'section-head';
+  head.onclick = () => toggleSection(section.id);
+  head.innerHTML = `
+    <span class="section-num">${String(si+1).padStart(2,'0')}</span>
+    <span class="section-title">${section.title}</span>
+    <span class="section-count" id="count-${section.id}">0/${section.items.length}</span>
+    <span class="section-toggle">&#9662;</span>
+  `;
+  secDiv.appendChild(head);
+
+  const itemsDiv = document.createElement('div');
+  itemsDiv.className = 'items';
+
+  section.items.forEach((item, ii) => {
+    const key = section.id + '-' + ii;
+    const checked = !!checks[key];
+    const div = document.createElement('div');
+    div.className = 'item' + (checked ? ' checked' : '');
+    div.id = 'item-' + key;
+
+    let badgeHtml = '';
+    if (item.badge === 'critical') badgeHtml = '<span class="badge badge-critical">Must have</span>';
+    else if (item.badge === 'important') badgeHtml = '<span class="badge badge-important">Important</span>';
+    else if (item.badge === 'placeholder') badgeHtml = '<span class="badge badge-placeholder">Needs completing</span>';
+
+    let noteHtml = item.note ? `<div class="item-note">${item.note}</div>` : '';
+    let regHtml = item.reg ? `<div class="item-reg">${item.reg}</div>` : '';
+
+    div.innerHTML = `
+      <div class="cb" onclick="toggleItem('${section.id}',${ii})">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div>
+        <div class="item-text">${item.text}${badgeHtml}</div>
+        ${noteHtml}
+        ${regHtml}
+      </div>
+    `;
+    itemsDiv.appendChild(div);
+  });
+
+  secDiv.appendChild(itemsDiv);
+  main.appendChild(secDiv);
+});
+
+// Notes area
+main.innerHTML += `
+<div class="notes-area">
+  <h3>Review Notes</h3>
+  <textarea placeholder="Use this space to note issues, missing items, or feedback for the team..."
+    oninput="try{localStorage.setItem('cr_notes',this.value)}catch(e){}"
+  >${(() => { try { return localStorage.getItem('cr_notes') || ''; } catch(e) { return ''; }})()}</textarea>
+</div>
+`;
+
+updateProgress();
+</script>
+
+</body>
+</html>
